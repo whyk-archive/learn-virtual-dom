@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets/scss/main.scss"],"names":[],"mappings":"AAAQ,mEAAA,CACA,qEAAA","file":"main.2e39da0d.css","sourceRoot":"../src","sourcesContent":["@import url(\"https://unpkg.com/nes.css@2.2.1/css/nes-core.min.css\");\n@import url(\"https://fonts.googleapis.com/css?family=Press+Start+2P\");"]}
