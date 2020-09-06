@@ -20,9 +20,7 @@ export interface View<State, Actions> {
  * @param attributes Node属性
  * @param children Nodeの子要素リスト
  */
-export function h (nodeName: VNode['nodeName'], attributes: VNode['attributes'], ...children: VNode['children']): VNode {
-  return {nodeName, attributes, children}
-}
+export const h = (nodeName: VNode['nodeName'], attributes: VNode['attributes'], ...children: VNode['children']): VNode => ({nodeName, attributes, children})
 
 const isEventAttr = (attribute: string): boolean => /^on/.test(attribute)
 
@@ -43,7 +41,7 @@ const isVNode = (node: NodeType): node is VNode => typeof node !== 'string' && t
  * Elementの作成
  * @param node 対象となるElement
  */
-export function createElement (node: NodeType): HTMLElement | Text {
+export const createElement = (node: NodeType): HTMLElement | Text => {
   if (!isVNode(node)) return document.createTextNode(node.toString())
 
   const el = document.createElement(node.nodeName)
@@ -75,9 +73,6 @@ const hasChanged = (oldNode: NodeType, newNode: NodeType): ChangeType => {
   if (isVNode(oldNode) && isVNode(newNode)) {
     if (oldNode.nodeName !== newNode.nodeName) return ChangeType.Node
     if (oldNode.attributes.value !== newNode.attributes.value) return ChangeType.Value
-    /**
-     * 
-     */
     if (JSON.stringify(oldNode.attributes) !== JSON.stringify(newNode.attributes)) return ChangeType.Attr
   }
   return ChangeType.None
@@ -112,7 +107,7 @@ const updateAttributes = (target: HTMLElement, oldAttrs: Attributes, newAttrs: A
  * @param newNode 新しいNode情報
  * @param index 子要素の順番
  */
-export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: NodeType, index = 0): void {
+export const updateElement = (parent: HTMLElement, oldNode: NodeType, newNode: NodeType, index = 0): void => {
   if (!oldNode) {
     parent.appendChild(createElement(newNode))
     return
@@ -139,8 +134,9 @@ export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: 
       return
   }
 
-  if (isVNode(oldNode) && isVNode(newNode))
+  if (isVNode(oldNode) && isVNode(newNode)) {
     for (let i = 0; newNode.children.length > i || oldNode.children.length > i; i++) {
       updateElement(target as HTMLElement, oldNode.children[i], newNode.children[i], i)
     }
+  }
 }
