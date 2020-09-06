@@ -43,60 +43,7 @@ const actions: Actions = {
   }
 }
 
-// const oninput = (e: Event) => {
-//   const target = e.target as HTMLInputElement
-//   state.form.title = target.value
-//   actions.validate(state, target.value)
-// }
-
 const view: View<State, Actions> = (state, actions) => 
-  // <div class="nes-container is-rounded">
-  //   <h1 class="title">Virtual DOM TODO App</h1>
-
-  //   <form class="nes-container">
-  //     <div class="nes-field">
-  //       <label for="task-title">Title</label>
-
-  //       <input
-  //         type="text"
-  //         class="nes-input"
-  //         value={state.form.title}
-  //         onInput={() => {/** タイトルのチェック */}}
-  //         />
-
-  //       <p
-  //         class="nes-text is-error"
-  //         style={{ display: state.form.hasError ? 'block' : 'none' }}>
-  //         Enter a value between 3 and 20 characters
-  //       </p>
-
-  //       <button
-  //         type="button"
-  //         class="nes-btn is-primary"
-  //         onClick={() => {/* 登録処理 */}}
-  //         >
-  //         Create
-  //       </button>
-  //     </div>
-  //   </form>
-
-  //   <ul class="nes-list is-disc nes-container">
-  //     {
-  //       state.tasks.map((task) => {
-  //         return <li class="item">
-  //           {task}
-  //           <button
-  //             type="button"
-  //             class="nes-btn is-error"
-  //             onClick={() => {/** 削除処理 */}}>
-  //             ×
-  //           </button>
-  //         </li>
-  //       })
-  //     }
-  //   </ul>
-  // </div>
-
   h(
     'div', 
     { 

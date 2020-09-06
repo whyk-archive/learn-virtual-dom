@@ -51,14 +51,6 @@ export function createElement (node: NodeType): HTMLElement | Text {
   node.children.forEach(child => el.appendChild(createElement(child)))
   return el
 }
-// export const createElement = (node: NodeType): HTMLElement | Text => {
-//   if (!isVNode(node)) return document.createTextNode(node.toString())
-
-//   const el = document.createElement(node.nodeName)
-//   setAttributes(el, node.attributes)
-//   node.children.forEach(child => el.appendChild(createElement(child)))
-//   return el
-// }
 
 /**
  * 仮想DOMの変更種別
@@ -133,16 +125,6 @@ export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: 
   }
 
   const changetype = hasChanged(oldNode, newNode)
-  // if ([ChangeType.Type, ChangeType.Text, ChangeType.Node].includes(changetype)) {
-  //   parent.replaceChild(createElement(newNode), target)
-  //   return
-  // } else if (changetype === ChangeType.Value) {
-  //   updateInputValue(target as HTMLInputElement, (newNode as VNode).attributes.value as string)
-  //   return
-  // } else if (changetype === ChangeType.Attr) {
-  //   updateAttributes(target as HTMLInputElement, (oldNode as VNode).attributes, (newNode as VNode).attributes)
-  //   return
-  // }
   switch (changetype) {
     case ChangeType.Type:
     case ChangeType.Text:
@@ -162,32 +144,3 @@ export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: 
       updateElement(target as HTMLElement, oldNode.children[i], newNode.children[i], i)
     }
 }
-// export const updateElement = (parent: HTMLElement, oldNode: NodeType, newNode: NodeType, index = 0) => {
-//   if (!oldNode) {
-//     parent.appendChild(createElement(newNode))
-//     return
-//   }
-
-//   const target = parent.childNodes[index]
-//   if (!newNode) {
-//     parent.removeChild(target)
-//     return
-//   }
-
-//   const changetype = hasChanged(oldNode, newNode)
-//   if ([ChangeType.Type, ChangeType.Text, ChangeType.Node].includes(changetype)) {
-//     parent.replaceChild(createElement(newNode), target)
-//     return
-//   } else if (changetype === ChangeType.Value) {
-//     updateInputValue(target as HTMLInputElement, (newNode as VNode).attributes.value as string)
-//     return
-//   } else if (changetype === ChangeType.Attr) {
-//     updateAttributes(target as HTMLInputElement, (oldNode as VNode).attributes, (newNode as VNode).attributes)
-//     return
-//   }
-
-//   if (isVNode(oldNode) && isVNode(newNode))
-//     for (let i = 0; newNode.children.length > i || oldNode.children.length > i; i++) {
-//       updateElement(target as HTMLElement, oldNode.children[i], newNode.children[i], i)
-//     }
-// }
