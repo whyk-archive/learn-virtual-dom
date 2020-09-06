@@ -79,7 +79,7 @@ enum ChangeType {
  */
 const hasChanged = (oldNode: NodeType, newNode: NodeType): ChangeType => {
   if (typeof oldNode !== typeof newNode) return ChangeType.Type
-  if (!isVNode(oldNode) && oldNode !== newNode) ChangeType.Text
+  if (!isVNode(oldNode) && oldNode !== newNode) return ChangeType.Text
   if (isVNode(oldNode) && isVNode(newNode)) {
     if (oldNode.nodeName !== newNode.nodeName) return ChangeType.Node
     if (oldNode.attributes.value !== newNode.attributes.value) return ChangeType.Value
