@@ -120,18 +120,15 @@ export const updateElement = (parent: HTMLElement, oldNode: NodeType, newNode: N
   }
 
   const changetype = hasChanged(oldNode, newNode)
-  switch (changetype) {
-    case ChangeType.Type:
-    case ChangeType.Text:
-    case ChangeType.Node:
-      parent.replaceChild(createElement(newNode), target)
-      return
-    case ChangeType.Value:
-      updateInputValue(target as HTMLInputElement, (newNode as VNode).attributes.value as string)
-      return
-    case ChangeType.Attr:
-      updateAttributes(target as HTMLInputElement, (oldNode as VNode).attributes, (newNode as VNode).attributes)
-      return
+  if ([ChangeType.Type, ChangeType.Text, ChangeType.Node].includes(changetype)) {
+    parent.replaceChild(createElement(newNode), target)
+    return
+  } else if (changetype === ChangeType.Value) {
+    updateInputValue(target as HTMLInputElement, (newNode as VNode).attributes.value as string)
+    return
+  } else if (changetype === ChangeType.Attr) {
+    updateAttributes(target as HTMLInputElement, (oldNode as VNode).attributes, (newNode as VNode).attributes)
+    return
   }
 
   if (isVNode(oldNode) && isVNode(newNode)) {
