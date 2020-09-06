@@ -24,9 +24,9 @@ export function h (nodeName: VNode['nodeName'], attributes: VNode['attributes'],
   return {nodeName, attributes, children}
 }
 
-const isEventAttr = (attribute: string) => /^on/.test(attribute)
+const isEventAttr = (attribute: string): boolean => /^on/.test(attribute)
 
-const setAttributes = (target: HTMLElement, attributes: Attributes) => {
+const setAttributes = (target: HTMLElement, attributes: Attributes): void => {
   for (const attr in attributes) {
     if (isEventAttr(attr)) {
       const eventName = attr.slice(2)
@@ -88,7 +88,7 @@ const hasChanged = (oldNode: NodeType, newNode: NodeType): ChangeType => {
  * @param target 対象のinput要素
  * @param newVal inputのvalueに設定する値
  */
-const updateInputValue = (target: HTMLInputElement, newVal: string) => { target.value = newVal }
+const updateInputValue = (target: HTMLInputElement, newVal: string): void => { target.value = newVal }
 
 /**
  * 属性の更新
@@ -96,7 +96,7 @@ const updateInputValue = (target: HTMLInputElement, newVal: string) => { target.
  * @param oldAttrs 古い属性
  * @param newAttrs 新しい属性
  */
-const updateAttributes = (target: HTMLElement, oldAttrs: Attributes, newAttrs: Attributes) => {
+const updateAttributes = (target: HTMLElement, oldAttrs: Attributes, newAttrs: Attributes): void => {
   for (const attr in oldAttrs) {
     if (!isEventAttr(attr)) target.removeAttribute(attr)
   }
@@ -112,7 +112,7 @@ const updateAttributes = (target: HTMLElement, oldAttrs: Attributes, newAttrs: A
  * @param newNode 新しいNode情報
  * @param index 子要素の順番
  */
-export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: NodeType, index = 0) {
+export function updateElement (parent: HTMLElement, oldNode: NodeType, newNode: NodeType, index = 0): void {
   if (!oldNode) {
     parent.appendChild(createElement(newNode))
     return
